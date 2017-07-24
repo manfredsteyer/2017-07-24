@@ -1,0 +1,31 @@
+<div class="card" *ngIf="flight">
+    <h1>Flight Edit</h1>
+
+  <div style="position: relative; z-index:100" *ngIf="exitInfo.showWarning" class="alert alert-warning">
+    <div>
+      Daten wurden nicht gespeichert! Trotzdem Maske verlassen?
+    </div>
+    <div>
+      <a href="javascript:void(0)" (click)="decide(true)" class="btn btn-danger">Ja</a>
+      <a href="javascript:void(0)" (click)="decide(false)" class="btn btn-default">Nein</a>
+    </div>
+  </div>
+
+
+  <div *ngIf="message">
+    {{ message }}
+    </div>
+    <p>
+        Id: {{flight.id}}
+    </p>
+    <p>
+        From: {{flight.from}}
+    </p>
+    <p>
+        To: {{flight.to}}
+    </p>
+    <p>
+        Date: {{flight.date | date:'dd.MM.yyyy HH:mm'}}
+    </p>
+
+</div>
