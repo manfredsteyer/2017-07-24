@@ -6,6 +6,7 @@ import { AuthService } from "app/shared/auth/auth.service";
 import { DelayResolver } from "app/shared/tools/delay.resolver";
 import { AuthGuard } from './auth/auth.guard';
 import { ExitGuard } from './exit-guard/exit.guard';
+import { CustomPreloadingStrategy } from './preloading/custom-preloading-strategy';
 
 @NgModule({
   imports: [
@@ -16,9 +17,10 @@ import { ExitGuard } from './exit-guard/exit.guard';
   ],
   providers: [
     DelayResolver,
-    AuthService,
+    // AuthService,
     AuthGuard,
-    ExitGuard
+    ExitGuard,
+    CustomPreloadingStrategy
   ],
   exports: [
     CityPipe

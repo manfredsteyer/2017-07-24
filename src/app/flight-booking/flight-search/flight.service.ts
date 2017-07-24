@@ -22,7 +22,7 @@ export class FlightService {
     const ONE_MINUTE = 1000 * 60;
 
     if (this.flights.length == 0) return;
-    
+
     let f = this.flights[0];
     let date = new Date(f.date);
     date.setTime(date.getTime() + 15 * ONE_MINUTE)
@@ -31,9 +31,9 @@ export class FlightService {
   }
 
   load(from: string, to: string): void {
-    
-    //let url = this.baseUrl + '/secureflight/byRoute';
-    let url = this.baseUrl + '/flight';
+
+    let url = this.baseUrl + '/secureflight/byRoute';
+    //let url = this.baseUrl + '/flight';
 
     let search = new URLSearchParams();
     search.set('from', from);
@@ -41,7 +41,7 @@ export class FlightService {
 
     let headers = new Headers();
     headers.set('Accept', 'application/json');
-    //headers.set('Authorization', this.oauthService.authorizationHeader());
+    headers.set('Authorization', this.oauthService.authorizationHeader());
 
     this
         .http
@@ -58,7 +58,7 @@ export class FlightService {
   }
 
   find(from: string, to: string): Observable<Flight[]> {
-    
+
     //let url = this.baseUrl + '/secureflight/byRoute';
     let url = this.baseUrl + '/flight';
 
@@ -78,7 +78,7 @@ export class FlightService {
 
 
   findById(id: string): Observable<Flight> {
-    
+
     //let url = this.baseUrl + '/secureflight/byRoute';
     let url = this.baseUrl + '/flight';
 
@@ -96,7 +96,7 @@ export class FlightService {
   }
 
   save(flight: Flight): Observable<Flight> {
-    
+
     //let url = this.baseUrl + '/secureflight/byRoute';
     let url = this.baseUrl + '/flight';
 

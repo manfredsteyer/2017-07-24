@@ -12,6 +12,7 @@ import { FlightEditComponent } from './flight-edit/flight-edit.component';
 import { FlightBookingComponent } from './flight-booking.component';
 import { TranslateModule } from "@ngx-translate/core";
 import { FlightResolver } from './flight-edit/flight.resolver';
+import { AuthModule } from '../auth/auth.module';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { FlightResolver } from './flight-edit/flight.resolver';
     SharedModule,
     ReactiveFormsModule,
     FlightBookingRouterModule,
+    AuthModule,
     TranslateModule.forChild()
   ],
   declarations: [

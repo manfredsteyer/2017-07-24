@@ -3,6 +3,7 @@ import { HomeComponent } from './home/home.component';
 import { FlightSearchComponent } from './flight-booking/flight-search/flight-search.component';
 import { PassengerSearchComponent } from './flight-booking/passenger-search/passenger-search.component';
 import { BasketComponent } from './basket/basket.component';
+import { CustomPreloadingStrategy } from './shared/preloading/custom-preloading-strategy';
 
 const APP_ROUTES: Routes = [
   {
@@ -14,12 +15,13 @@ const APP_ROUTES: Routes = [
     path: 'home',
     component: HomeComponent
   },
-  /*
   {
     path: 'flight-booking',
+    data: {
+      preload: false
+    },
     loadChildren: './flight-booking/flight-booking.module#FlightBookingModule'
   },
-  */
   {
     path: 'basket',
     component: BasketComponent,
@@ -35,6 +37,6 @@ const APP_ROUTES: Routes = [
 
 export const AppRouterModule =
   RouterModule.forRoot(APP_ROUTES, {
-    preloadingStrategy: PreloadAllModules
+    preloadingStrategy: CustomPreloadingStrategy //PreloadAllModules
   });
 

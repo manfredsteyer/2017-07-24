@@ -17,7 +17,7 @@ export class AppComponent {
     private oauthService: OAuthService,
     private translateService: TranslateService) {
 
-    // this.initAuth();
+    this.initAuth();
     this.initRouterEvents();
     this.initI18N();
   }
@@ -70,7 +70,7 @@ export class AppComponent {
     // The name of the auth-server that has to be mentioned within the token
     this.oauthService.issuer = "https://steyer-identity-server.azurewebsites.net/identity";
 
-    // Load Discovery Document and then try to login the user
+    // OIDC, Load Discovery Document and then try to login the user
     this.oauthService.loadDiscoveryDocument().then(() => {
 
       // This method just tries to parse the token(s) within the url when
