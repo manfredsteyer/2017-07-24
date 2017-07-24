@@ -3,14 +3,24 @@
 
   <h1>Flight Search</h1>
 
-  <form>
+  <form #form="ngForm">
 
   <div class="form-group">
     <label for="from">From:</label>
     <input
       [(ngModel)]="from"
       name="from"
+      required
+      minlength="3"
+      maxlength="30"
+      pattern="\w*"
       class="form-control">
+
+    <div *ngIf="!form?.controls['from']?.valid">Fehler</div>
+    <div *ngIf="form?.controls['from']?.hasError('required') && form?.controls['from']?.dirty">Required</div>
+    <div *ngIf="form?.controls['from']?.hasError('minlength')">Minlength</div>
+    <div *ngIf="form?.controls['from']?.hasError('pattern')">Pattern</div>
+    <div><pre>{{ form?.controls['from']?.errors | json }}</pre></div>
   </div>
 
   <div class="form-group">
