@@ -17,6 +17,11 @@
   </div>
 
   <form [formGroup]="form">
+
+    <pre>
+      {{form.errors | json }}
+    </pre>
+
     <div class="control-group">
       <label>Id:</label>
       <input formControlName="id" class="form-control">
@@ -24,8 +29,13 @@
     <div class="control-group">
       <label>From:</label>
       <input formControlName="from" class="form-control">
+
+      <div *ngIf="form.controls['from'].pending">
+        <marquee direction="down">Validiere im Hintergrund</marquee>
+      </div>
       <div *ngIf="form.controls['from'].hasError('required')">Required</div>
       <div *ngIf="form.controls['from'].hasError('minlength')">Minlength</div>
+      <div><pre>{{  form.controls['from'].errors | json }}</pre></div>
     </div>
     <div class="control-group">
       <label>To:</label>

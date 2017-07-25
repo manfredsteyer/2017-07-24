@@ -6,6 +6,7 @@ import { Exit } from '../../shared/exit-guard/exit';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CityValidator } from '../../shared/validation/city.validator';
 
 @Component({
   selector: 'flight-edit',
@@ -48,13 +49,24 @@ export class FlightEditComponent implements OnInit, Exit {
         '',
         [
           Validators.required,
-          Validators.minLength(3)
+          Validators.minLength(3),
+          CityValidator.validate,
+          CityValidator.validateWithParams(['Graz', 'Hamburg', 'Wien', 'Frankfurt', 'Berlin', 'Jakarta'])
+        ],
+        [
+          CityValidator.validateAsync(this.flightService)
         ]
+
+
       ],
       to: [''],
       date: [''],
       id: [null]
     });
+
+    this.form.validator = Validators.compose([
+      CityValidator.validateRoundTrips
+    ]);
 
     this.form.valueChanges.subscribe(changes => {
       console.debug('changes', changes);
