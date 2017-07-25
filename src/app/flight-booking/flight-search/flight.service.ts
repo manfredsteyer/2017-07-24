@@ -5,12 +5,16 @@ import { Http, Headers, URLSearchParams } from '@angular/http';
 import { Injectable, Inject } from '@angular/core';
 import { BASE_URL } from '../../app.tokens';
 import { OAuthService } from 'angular-oauth2-oidc';
+import { AppState } from '../../../model/app.state';
+import { Store } from '@ngrx/store';
+import { FlightLoadedAction } from '../../../model/flights/flight.actions';
 
 @Injectable()
 export class FlightService {
 
   constructor(
     private http: Http,
+    private store: Store<AppState>,
     @Inject(BASE_URL) private baseUrl: string,
     private oauthService: OAuthService) {
   }
@@ -32,8 +36,9 @@ export class FlightService {
 
   load(from: string, to: string): void {
 
-    let url = this.baseUrl + '/secureflight/byRoute';
-    //let url = this.baseUrl + '/flight';
+    //let url = this.baseUrl + '/secureflight/byRoute';
+    let url = this.baseUrl + '/flight';
+
 
     let search = new URLSearchParams();
     search.set('from', from);
@@ -49,7 +54,9 @@ export class FlightService {
         .map(resp => resp.json())
         .subscribe(
           flights => {
-            this.flights = flights;
+            // this.flights = flights;
+            this.store.dispatch(new FlightLoadedAction(flights));
+            // TODO: In den Store reingeben!!!
           },
           err => {
             console.error(err)

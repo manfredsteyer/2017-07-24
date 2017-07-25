@@ -15,6 +15,13 @@ import { OAuthModule } from 'angular-oauth2-oidc';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { AuthModule } from './auth/auth.module';
+import { StoreModule } from '@ngrx/store';
+import { initAppState } from '../model/app.state';
+import { appReducer, mainReducer } from '../model/app.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
+import { FlightEffects } from '../model/flights/flight.effects';
+import { FlightService } from './flight-booking/flight-search/flight.service';
 
 export function createLoader(http: Http) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -36,7 +43,12 @@ export function createLoader(http: Http) {
         deps: [Http]
       }
     }),
-    OAuthModule.forRoot()
+    OAuthModule.forRoot(),
+    StoreModule.forRoot(mainReducer, {
+      initialState: initAppState
+    }),
+    StoreDevtoolsModule.instrument(),
+    EffectsModule.forRoot([FlightEffects])
   ],
   declarations: [
     AppComponent,
@@ -46,6 +58,7 @@ export function createLoader(http: Http) {
   providers: [
     // { provide: FlightService, useClass: FlightService }
     // FlightService
+    FlightService,
     EventService,
     {provide: BASE_URL, useValue: 'http://www.angular.at/api'}
   ],
@@ -53,3 +66,5 @@ export function createLoader(http: Http) {
 })
 export class AppModule {
 }
+
+

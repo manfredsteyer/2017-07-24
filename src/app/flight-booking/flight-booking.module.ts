@@ -33,7 +33,7 @@ import { AuthModule } from '../auth/auth.module';
   ],
   providers: [
     FlightService,
-    FlightResolver
+    FlightResolver,
   ],
   exports: [
     FlightSearchComponent

@@ -10,7 +10,8 @@
 
     <li><a [routerLink]="[{ outlets: { 'aux': 'basket' }}]">Show Basket</a></li>
     <li><a [routerLink]="[{ outlets: { 'aux': null }}]">Hide Basket</a></li>
-
+    <li><a (click)="setLang('de')">DE</a></li>
+    <li><a (click)="setLang('en')">EN</a></li>
   </ul>
 </nav>
 

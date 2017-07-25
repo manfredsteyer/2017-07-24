@@ -17,7 +17,7 @@ export class FlightResolver implements Resolve<Flight> {
     let id = route.params['id'];
     return this
             .flightService
-            .findById(id)
-            .catch(e => Observable.of({}));
+            .findById(id);
+            //.catch(e => Observable.of({}));
   }
 }

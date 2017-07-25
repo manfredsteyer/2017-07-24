@@ -47,6 +47,10 @@ export class AppComponent {
     this.translateService.use('de');
   }
 
+  setLang(lang: string): void {
+    this.translateService.use(lang);
+  }
+
   initAuth() {
 
     // URL of the SPA to redirect the user to after login

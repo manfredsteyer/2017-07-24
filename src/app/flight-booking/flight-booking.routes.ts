@@ -8,11 +8,12 @@ import { AuthGuard } from '../shared/auth/auth.guard';
 import { ExitGuard } from '../shared/exit-guard/exit.guard';
 import { FlightResolver } from './flight-edit/flight.resolver';
 
+
 const FLIGHT_BOOKING_ROUTES: Routes = [
   {
     path: '',
     component: FlightBookingComponent,
-    canActivate:[AuthGuard],
+    //canActivate:[AuthGuard],
     children: [
       {
         path: '',
