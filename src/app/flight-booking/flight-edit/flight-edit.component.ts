@@ -5,12 +5,15 @@ import { FlightService } from "app/flight-booking/flight-search/flight.service";
 import { Exit } from '../../shared/exit-guard/exit';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'flight-edit',
   templateUrl: './flight-edit.component.html'
 })
 export class FlightEditComponent implements OnInit, Exit {
+
+  form: FormGroup;
 
   exitInfo = {
     sender: null,
@@ -30,9 +33,37 @@ export class FlightEditComponent implements OnInit, Exit {
     });
   }
 
+  formMetadata = [
+    { name: 'id', label: 'Flight-Id', control: null },
+    { name: 'from', label: 'Airport of Departure' }
+  ];
+
   constructor(
     private route: ActivatedRoute,
-    private flightService: FlightService) {
+    private flightService: FlightService,
+    private fb: FormBuilder) {
+
+    this.form = fb.group({
+      from: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3)
+        ]
+      ],
+      to: [''],
+      date: [''],
+      id: [null]
+    });
+
+    this.form.valueChanges.subscribe(changes => {
+      console.debug('changes', changes);
+    });
+
+    this.form.controls['from'].valueChanges.subscribe(changes => {
+      console.debug('from changed', changes);
+    });
+
   }
 
   id: string;
@@ -48,13 +79,14 @@ export class FlightEditComponent implements OnInit, Exit {
 
     this.route.data.subscribe(data => {
       this.flight = data['flight'];
+      this.form.patchValue(this.flight);
     })
   }
 
   save() {
-    this.flightService.save(this.flight).subscribe(
+    this.flightService.save(this.form.value).subscribe(
       f => {
-        this.flight = f;
+        this.form.patchValue(f);
         this.message = 'Successfully saved!';
       },
       err => {

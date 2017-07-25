@@ -14,18 +14,40 @@
 
   <div *ngIf="message">
     {{ message }}
+  </div>
+
+  <form [formGroup]="form">
+    <div class="control-group">
+      <label>Id:</label>
+      <input formControlName="id" class="form-control">
     </div>
-    <p>
-        Id: {{flight.id}}
-    </p>
-    <p>
-        From: {{flight.from}}
-    </p>
-    <p>
-        To: {{flight.to}}
-    </p>
-    <p>
-        Date: {{flight.date | date:'dd.MM.yyyy HH:mm'}}
-    </p>
+    <div class="control-group">
+      <label>From:</label>
+      <input formControlName="from" class="form-control">
+      <div *ngIf="form.controls['from'].hasError('required')">Required</div>
+      <div *ngIf="form.controls['from'].hasError('minlength')">Minlength</div>
+    </div>
+    <div class="control-group">
+      <label>To:</label>
+      <input formControlName="to" class="form-control">
+    </div>
+    <div class="control-group">
+      <label>Date:</label>
+      <input formControlName="date" class="form-control">
+    </div>
+    <div class="control-group">
+      <button class="btn btn-default" (click)="save()">Save</button>
+    </div>
+
+
+    <h2>Dynamic Fields</h2>
+
+    <div class="control-group" *ngFor="let item of formMetadata">
+      <label>{{item.label}}</label>
+      <input class="form-control" [formControlName]="item.name">
+    </div>
+
+  </form>
+
 
 </div>
